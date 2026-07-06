@@ -1,0 +1,138 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Configure camera_client",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "-S",
+                "${workspaceFolder}/client",
+                "-B",
+                "${workspaceFolder}/client/build",
+                "-DCMAKE_BUILD_TYPE=Debug"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Build camera_client",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build",
+                "${workspaceFolder}/client/build",
+                "--target",
+                "camera_client"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "dependsOn": [
+                "Configure camera_client"
+            ],
+            "dependsOrder": "sequence",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "Check GDB ptrace permission",
+            "type": "shell",
+            "command": "gdb",
+            "args": [
+                "-q",
+                "-batch",
+                "-iex",
+                "set auto-load safe-path ${workspaceFolder}/client:/usr/share/gdb/auto-load",
+                "-iex",
+                "set debuginfod enabled off",
+                "-ex",
+                "break main",
+                "-ex",
+                "run",
+                "-ex",
+                "bt",
+                "./build/camera_client"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/client"
+            },
+            "dependsOn": [
+                "Build camera_client"
+            ],
+            "dependsOrder": "sequence",
+            "problemMatcher": []
+        },
+        {
+            "label": "setup: client",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "skills/scripts/setup-env.sh",
+                "client"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "setup: extensions",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "skills/scripts/setup-env.sh",
+                "extensions"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "setup: vcpkg",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "skills/scripts/setup-env.sh",
+                "vcpkg"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "verify: client",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "skills/scripts/setup-env.sh",
+                "verify"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "setup: server",
+            "type": "shell",
+            "command": "pwsh",
+            "args": [
+                "-File",
+                "skills/scripts/setup-env.ps1",
+                "-Target",
+                "server"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "verify: server",
+            "type": "shell",
+            "command": "pwsh",
+            "args": [
+                "-File",
+                "skills/scripts/setup-env.ps1",
+                "-Target",
+                "verify"
+            ],
+            "problemMatcher": []
+        }
+    ]
+}

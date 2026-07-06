@@ -1,0 +1,4 @@
+# Hashes of file build rules.
+f6df5d67e9706a5ce7b6441c56fa62f9 CMakeFiles/camera_client_autogen
+f6df5d67e9706a5ce7b6441c56fa62f9 CMakeFiles/camera_client_autogen_timestamp_deps
+7a59a211018d975701bc30d105b3c809 camera_client_autogen/timestamp

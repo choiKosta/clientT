@@ -1,0 +1,17 @@
+{
+    "cmake.configureOnOpen": false,
+    "cmake.generator": "Ninja",
+    "cmake.sourceDirectory": "${workspaceFolder}/client",
+    "cmake.buildDirectory": "${workspaceFolder}/client/build",
+    "cmake.useCMakePresets": "always",
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+    "files.associations": {
+        "*.ipp": "cpp",
+        "*.tpp": "cpp"
+    },
+    "java.import.gradle.enabled": true,
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.server.launchMode": "Standard",
+    "editor.formatOnSave": true,
+    "extensions.ignoreRecommendations": false
+}

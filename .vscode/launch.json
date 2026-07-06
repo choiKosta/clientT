@@ -1,0 +1,45 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug camera_client",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/client/build/camera_client",
+            "args": [],
+            "stopAtEntry": true,
+            "cwd": "${workspaceFolder}/client",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "miDebuggerPath": "${workspaceFolder}/.vscode/gdb-wrapper.sh",
+            "miDebuggerArgs": "-iex \"set auto-load safe-path ${workspaceFolder}/client:/usr/share/gdb/auto-load\" -iex \"set debuginfod enabled off\"",
+            "preLaunchTask": "Build camera_client",
+            "logging": {
+                "engineLogging": true,
+                "trace": true,
+                "traceResponse": true
+            },
+            "setupCommands": [
+                {
+                    "description": "Disable debuginfod prompt",
+                    "text": "set debuginfod enabled off",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Run camera_client (no debugger)",
+            "type": "node-terminal",
+            "request": "launch",
+            "command": "./build/camera_client",
+            "cwd": "${workspaceFolder}/client",
+            "preLaunchTask": "Build camera_client"
+        }
+    ]
+}

@@ -1,0 +1,71 @@
+---
+name: setup-env
+description: Provision the client/server development environment, VS Code extensions, and workspace settings from requirements.md.
+inputs:
+  target:
+    description: client, server, extensions, verify, or all
+    default: all
+  installOpenCvNative:
+    description: On Windows server, optionally install OpenCV native libraries through vcpkg.
+    default: false
+---
+
+# setup-env.agent
+
+## Goal
+
+Create a reproducible development setup from [requirements.md](/home/kosta/clientT-1/requirements.md):
+
+- Client: Ubuntu/WSL2, C++, CMake, g++, gdb, OpenCV, Qt, Google Test, vcpkg, Docker
+- Server: Windows, Java, Gradle, Spring, Docker, optional OpenCV native toolchain
+- IDE: VS Code extensions and workspace settings aligned to both stacks
+
+## Execution Rules
+
+1. Read [requirements.md](/home/kosta/clientT-1/requirements.md) before making environment changes.
+2. Use the workspace scripts under `skills/scripts` instead of embedding package-manager commands inline.
+3. Prefer the target-specific entrypoints:
+   - Linux or WSL2 client: `bash skills/scripts/setup-env.sh client`
+  - Linux or WSL2 vcpkg only: `bash skills/scripts/setup-env.sh vcpkg`
+   - Linux or WSL2 extensions only: `bash skills/scripts/setup-env.sh extensions`
+   - Linux or WSL2 full setup: `bash skills/scripts/setup-env.sh all`
+   - Windows server: `pwsh -File skills/scripts/setup-env.ps1 -Target server`
+   - Windows server with optional native OpenCV: `pwsh -File skills/scripts/setup-env.ps1 -Target server -InstallOpenCvNative`
+4. After installation, run the matching verify command:
+   - Linux or WSL2: `bash skills/scripts/setup-env.sh verify`
+   - Windows: `pwsh -File skills/scripts/setup-env.ps1 -Target verify`
+
+## What To Install
+
+### Client Toolchain
+
+- Build tools: CMake, Ninja, g++, make, pkg-config
+- Debugging: gdb
+- UI and vision: Qt 6, OpenCV
+- Test: Google Test
+- Package and deployment: vcpkg, Docker
+
+### Server Toolchain
+
+- Java runtime and build: OpenJDK 21, Gradle
+- IDE and tooling: IntelliJ IDEA Community, VS Code, Git
+- Deployment: Docker Desktop
+- Optional native support: CMake, Visual Studio Build Tools, vcpkg, OpenCV
+
+### VS Code
+
+- C/C++, CMake Tools, Docker, Java Pack, Spring Boot support, Gradle support
+- GitHub Copilot and Copilot Chat
+- Workspace recommendations in [.vscode/extensions.json](/home/kosta/clientT-1/.vscode/extensions.json)
+- Shared settings in [.vscode/settings.json](/home/kosta/clientT-1/.vscode/settings.json)
+
+## Verification
+
+- Client verification checks `cmake`, `g++`, `gdb`, `docker`, `pkg-config`, Qt 6, OpenCV, and vcpkg.
+- Server verification checks `java`, `gradle`, `git`, and optional native toolchain components.
+
+## Notes
+
+- The fixed RTSP endpoint contract stays in [interface-protocol.md](/home/kosta/clientT-1/interface-protocol.md); this agent only provisions development tools.
+- Docker post-install group membership may still require sign-out/sign-in on Linux.
+- Native OpenCV on Windows is optional because some Java stacks package it with Gradle dependencies instead of a machine-wide install.

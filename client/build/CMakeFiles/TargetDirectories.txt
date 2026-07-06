@@ -1,0 +1,5 @@
+/home/kosta/clientT-1/client/build/CMakeFiles/camera_client.dir
+/home/kosta/clientT-1/client/build/CMakeFiles/edit_cache.dir
+/home/kosta/clientT-1/client/build/CMakeFiles/rebuild_cache.dir
+/home/kosta/clientT-1/client/build/CMakeFiles/camera_client_autogen_timestamp_deps.dir
+/home/kosta/clientT-1/client/build/CMakeFiles/camera_client_autogen.dir
